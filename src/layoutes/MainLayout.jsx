@@ -11,7 +11,7 @@ const MainLayout = () => {
       <div className="min-h-screen">
         <Outlet />
       </div>
-      <div>
+      <div className=" mt-6">
         <Footer />
       </div>
     </>
