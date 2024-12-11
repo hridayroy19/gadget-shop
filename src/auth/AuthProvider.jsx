@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -19,34 +20,39 @@ const AuthProvider = ({ children }) => {
   const provider = new GoogleAuthProvider();
 
   const createUser = (email, password) => {
+    setLoading(true)
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const login = (email, password) => {
+  const Login = (email, password) => {
+    setLoading(true)
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   const SignOut = () => {
+    setLoading(true)
     return signOut(auth);
   };
 
   const google = () => {
+    setLoading(true)
     return signInWithPopup(auth, provider);
   };
 
   useEffect(() => {
-    const unScribe = onAuthStateChanged(auth, (currentUser) => {
+    const unScribe = onAuthStateChanged(auth, currentUser => {
+      console.log('user in the auth',currentUser);
       setUser(currentUser);
       setLoading(false);
     });
     return () => {
-      return unScribe;
+      return unScribe();
     };
-  });
+  }, []);
 
   const authInfo = {
     createUser,
-    login,
+    Login,
     SignOut,
     google,
     user,
@@ -59,3 +65,4 @@ const AuthProvider = ({ children }) => {
 };
 
 export default AuthProvider;
+ 

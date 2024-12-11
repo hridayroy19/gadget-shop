@@ -2,9 +2,30 @@
 import { CiUser } from "react-icons/ci";
 import { MdOutlineMarkEmailUnread } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+// import UseAuth from "../hooks/UseAuth";
+import { useForm } from "react-hook-form";
+
+import UseAuth from "../hooks/UseAuth";
 
 const Registar = () => {
+  const { createUser } = UseAuth();
+  const Navigat = useNavigate()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    createUser(data.email, data.password, data.name)
+    Navigat("/")
+    // console.log(data);
+  };
+
+  
+
   return (
     <div className="font-serif">
       <div className="bg-[#4c82c971] lg:h-screen md:h-screen flex justify-center items-center">
@@ -22,7 +43,7 @@ const Registar = () => {
 
             {/* Form section */}
             <div className="w-full mx-auto">
-              <form className="card-body">
+              <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
                 <div>
                   <label
                     htmlFor="name"
@@ -33,10 +54,15 @@ const Registar = () => {
                       id="name"
                       type="text"
                       className="grow"
-                      placeholder=" Enter Your Name "
-                      required
+                      placeholder=" Enter Your Name"
+                      {...register("name", { required: true })}
                     />
                   </label>
+                  {errors.email && (
+                    <p className=" text-red-500 font-medium">
+                      Name is required
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label
@@ -49,9 +75,14 @@ const Registar = () => {
                       type="email"
                       className="grow"
                       placeholder="Email Address"
-                      required
+                      {...register("email", { required: true })}
                     />
                   </label>
+                  {errors.email && (
+                    <p className=" text-red-500 font-medium">
+                      email is required
+                    </p>
+                  )}
                 </div>
                 <div className=" mt-3">
                   <label
@@ -64,12 +95,17 @@ const Registar = () => {
                       type="password"
                       className="grow"
                       placeholder="Password"
-                      required
+                      {...register("password", { required: true })}
                     />
                   </label>
+                  {errors.email && (
+                    <p className=" text-red-500 font-medium">
+                      Password is required
+                    </p>
+                  )}
                 </div>
 
-                <button className="bg-blue-500 border-none btn btn-block mt-3">
+                <button type="submit" className="bg-blue-500 border-none btn btn-block mt-3">
                   Login Now
                 </button>
 

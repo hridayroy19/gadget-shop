@@ -1,6 +1,13 @@
-import { NavLink } from "react-router-dom";
+/* eslint-disable no-undef */
+import { Link, NavLink } from "react-router-dom";
+import UseAuth from "../hooks/UseAuth";
 
 const Navbar = () => {
+  const { user, SignOut } = UseAuth();
+
+  const handelLogout = () => {
+    SignOut().then().catch();
+  };
   return (
     <>
       <div className="navbar bg-base-200 px-8">
@@ -63,8 +70,50 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
+        {/* user profile sction */}
         <div className="navbar-end">
-          <NavLink to='/login'><a className="btn btn-circle text-blue-700 bg-slate-400">Login</a></NavLink>
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img
+                  src={`${user?.photoURL ? photoURL : "../../public/user.png"}`}
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-36 p-2 shadow"
+            >
+              <li>
+                <a>Profile</a>
+              </li>
+              <li>
+                <a>Deshboard</a>
+              </li>
+              <div className="">
+                {user ? (
+                  <>
+                    <button
+                      className="font-bold  px-3 mt-2 py-1 border-2 "
+                      onClick={handelLogout}
+                    >
+                      Logouts
+                    </button>
+                  </>
+                ) : (
+                  <Link to={"/login"}>
+                    <button className="font-bold  px-3 mt-2 py-1 border-2 w-full mx-auto text-blue-500  ">
+                      LogIn
+                    </button>
+                  </Link>
+                )}
+              </div>
+            </ul>
+          </div>
         </div>
       </div>
     </>

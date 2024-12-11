@@ -1,8 +1,24 @@
 /* eslint-disable react/no-unescaped-entities */
 import { MdOutlineMarkEmailUnread } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import UseAuth from "../hooks/UseAuth";
+import { useForm } from "react-hook-form";
 const Login = () => {
+  const { Login } = UseAuth();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const Navigat = useNavigate()
+  const onSubmit = (data) => {
+   Login(data.email, data.password)
+   Navigat('/')
+   
+  };
+
   return (
     <div className="font-serif">
       <div className="bg-[#4c82c971] lg:h-screen md:h-screen flex justify-center items-center">
@@ -11,7 +27,6 @@ const Login = () => {
           <div className="w-full lg:w-[400px] md:px-2 px-5 flex md:border-e-2 justify-center lg:justify-start">
             <img src="../../public/llo.jpg" alt="" />
           </div>
-
           {/* Form Section */}
           <div className="w-full lg:w-[380px] px-2">
             <h1 className=" text-blue-700 lg:mt-8 mt-6 text-center font-extralight font-serif text-3xl">
@@ -20,7 +35,7 @@ const Login = () => {
 
             {/* Form section */}
             <div className="w-full mx-auto">
-              <form className="card-body">
+              <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
                 <div>
                   <label
                     htmlFor="email"
@@ -28,13 +43,17 @@ const Login = () => {
                   >
                     <MdOutlineMarkEmailUnread className=" text-xl" />
                     <input
-                      id="email"
                       type="email"
                       className="grow"
                       placeholder="Email Address"
-                      required
+                      {...register("email", { required: true })}
                     />
                   </label>
+                  {errors.email && (
+                    <p className=" text-red-500 font-medium">
+                      email is required
+                    </p>
+                  )}
                 </div>
 
                 <div className=" mt-3">
@@ -48,9 +67,14 @@ const Login = () => {
                       type="password"
                       className="grow"
                       placeholder="Password"
-                      required
+                      {...register("password", { required: true })}
                     />
                   </label>
+                  {errors.email && (
+                    <p className=" text-red-500 font-medium">
+                      Password is required
+                    </p>
+                  )}
                 </div>
 
                 <p className=" text-blue-500 mt-2">Forgot Password?</p>
