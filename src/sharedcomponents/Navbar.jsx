@@ -1,8 +1,10 @@
+import { NavLink } from "react-router-dom";
+
 const Navbar = () => {
   return (
     <>
-      <div className="navbar bg-base-200">
-        <div className="navbar-start">
+      <div className="navbar bg-base-200 px-8">
+        <div className="navbar-start  ">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
@@ -43,33 +45,26 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <h3 className=" text-xl">Gadget Shoop</h3>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <a>Item 1</a>
+              <NavLink to="/">Home </NavLink>
             </li>
             <li>
-              <details>
-                <summary>Parent</summary>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
-              </details>
+              <NavLink to="/products">Products</NavLink>
             </li>
             <li>
-              <a>Item 3</a>
+              <NavLink to="/about">About </NavLink>
+            </li>
+            <li>
+              <NavLink to="/contact-us">Contact Us </NavLink>
             </li>
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          <NavLink to='/login'><a className="btn btn-circle text-blue-700 bg-slate-400">Login</a></NavLink>
         </div>
       </div>
     </>
