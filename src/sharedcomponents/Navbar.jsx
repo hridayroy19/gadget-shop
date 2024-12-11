@@ -80,7 +80,8 @@ const Navbar = () => {
             >
               <div className="w-10 rounded-full">
                 <img
-                  src={`${user?.photoURL ? photoURL : "../../public/user.png"}`}
+                  src={`${user?.photoURL ? user?.photoURL : "../../public/user.png"}`}
+                  alt="photo"
                 />
               </div>
             </div>

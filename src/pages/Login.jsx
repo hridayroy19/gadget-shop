@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import UseAuth from "../hooks/UseAuth";
 import { useForm } from "react-hook-form";
 const Login = () => {
-  const { Login } = UseAuth();
+  const { Login, signInWithgoogle } = UseAuth();
 
   const {
     register,
@@ -18,6 +18,15 @@ const Login = () => {
    Navigat('/')
    
   };
+
+  const handelGoogleSignWith=()=>{
+    signInWithgoogle()
+    .then(res=>{
+      console.log(res)
+     })
+  }
+   console.log(handelGoogleSignWith,"button click");
+   
 
   return (
     <div className="font-serif">
@@ -83,13 +92,25 @@ const Login = () => {
                   Login Now
                 </button>
 
-                <h1 className="text-white py-1 mt-2 ">
+                <h1 className="text-white ml-4 py-1  ">
                   Don't have an account?
                   <span className="ml-2  text-blue-700">
                     <Link to={"/registar"}> Signup </Link>
                   </span>
                 </h1>
+               
               </form>
+              <div className=" flex gap-5 justify-center w-full mx-auto">
+                  <button className="btn btn-primary" onClick={handelGoogleSignWith}>
+                    google
+                    </button>
+                    <button>
+                      twiter
+                      </button>
+                      <button>
+                         facebook
+                      </button>
+                </div>
             </div>
           </div>
         </div>

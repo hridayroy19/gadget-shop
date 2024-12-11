@@ -6,8 +6,9 @@ import {
   signOut,
   signInWithPopup,
   onAuthStateChanged,
+  GoogleAuthProvider,
 } from "firebase/auth";
-import { GoogleAuthProvider } from "firebase/auth/web-extension";
+
 import { createContext, useEffect, useState } from "react";
 import { app } from "../firebase/firebase";
 
@@ -17,7 +18,7 @@ const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
-  const provider = new GoogleAuthProvider();
+  const googleProvider = new GoogleAuthProvider();
 
   const createUser = (email, password) => {
     setLoading(true)
@@ -34,9 +35,9 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
-  const google = () => {
+  const signInWithgoogle = () => {
     setLoading(true)
-    return signInWithPopup(auth, provider);
+    return signInWithPopup(auth, googleProvider);
   };
 
   useEffect(() => {
@@ -54,7 +55,7 @@ const AuthProvider = ({ children }) => {
     createUser,
     Login,
     SignOut,
-    google,
+    signInWithgoogle,
     user,
     loading,
   };
