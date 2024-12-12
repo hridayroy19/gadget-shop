@@ -11,6 +11,7 @@ import {
 
 import { createContext, useEffect, useState } from "react";
 import { app } from "../firebase/firebase";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -44,7 +45,20 @@ const AuthProvider = ({ children }) => {
     const unScribe = onAuthStateChanged(auth, currentUser => {
       console.log('user in the auth',currentUser);
       setUser(currentUser);
-      setLoading(false);
+      if(currentUser){
+        axios.post(`http://localhost:5000/authication`,{
+          email:currentUser.email
+        }).then(data=>{
+          if(data.data){
+            localStorage.setItem('access-token',data?.data?.token)
+            setLoading(false);
+
+          }
+        })
+      } else{
+        localStorage.removeItem('access-token')
+        setLoading(false)
+      }
     });
     return () => {
       return unScribe();

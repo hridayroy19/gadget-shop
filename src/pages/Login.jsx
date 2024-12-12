@@ -4,6 +4,7 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import UseAuth from "../hooks/UseAuth";
 import { useForm } from "react-hook-form";
+import { FaGoogle } from "react-icons/fa";
 const Login = () => {
   const { Login, signInWithgoogle } = UseAuth();
 
@@ -23,6 +24,7 @@ const Login = () => {
     signInWithgoogle()
     .then(res=>{
       console.log(res)
+      Navigat('/')
      })
   }
    console.log(handelGoogleSignWith,"button click");
@@ -31,7 +33,7 @@ const Login = () => {
   return (
     <div className="font-serif">
       <div className="bg-[#4c82c971] lg:h-screen md:h-screen flex justify-center items-center">
-        <div className="w-full lg:w-[800px] md:w-[700px] lg:h-[420px] shadow-2xl bg-[#26426d3b] flex flex-col lg:flex-row md:flex-row justify-center items-center">
+        <div className="w-full lg:w-[800px] md:w-[700px] lg:h-[460px] shadow-2xl bg-[#26426d3b] flex flex-col lg:flex-row md:flex-row justify-center items-center">
           {/* Image Section */}
           <div className="w-full lg:w-[400px] md:px-2 px-5 flex md:border-e-2 justify-center lg:justify-start">
             <img src="../../public/llo.jpg" alt="" />
@@ -92,24 +94,17 @@ const Login = () => {
                   Login Now
                 </button>
 
-                <h1 className="text-white ml-4 py-1  ">
+                <h1 className="text-white ml-4 mt-1  ">
                   Don't have an account?
                   <span className="ml-2  text-blue-700">
                     <Link to={"/registar"}> Signup </Link>
                   </span>
                 </h1>
-               
               </form>
               <div className=" flex gap-5 justify-center w-full mx-auto">
-                  <button className="btn btn-primary" onClick={handelGoogleSignWith}>
-                    google
+                  <button className="btn w-1/2 border-none text-2xl btn-sm btn-outline bg-blue-500" onClick={handelGoogleSignWith}>
+                  <FaGoogle />
                     </button>
-                    <button>
-                      twiter
-                      </button>
-                      <button>
-                         facebook
-                      </button>
                 </div>
             </div>
           </div>
