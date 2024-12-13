@@ -13,6 +13,7 @@ import { createContext, useEffect, useState } from "react";
 import { app } from "../firebase/firebase";
 import axios from "axios";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
 
