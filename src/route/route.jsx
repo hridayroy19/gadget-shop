@@ -5,6 +5,8 @@ import FutureProduct from "../components/homeComponents/FutureProduct.";
 import About from "../pages/About";
 import Login from "../pages/Login";
 import Registar from "../pages/Registar";
+import DeshboardLayout from "../layoutes/DeshboardLayout";
+import PrivetRouter from "./PrivetRouter";
 
 export const router = createBrowserRouter([
     {
@@ -32,6 +34,12 @@ export const router = createBrowserRouter([
           element:<Registar/>
         }
       ]
-    },
+    },{
+      path:"/deshboard",
+      element:<PrivetRouter> <DeshboardLayout/> </PrivetRouter> ,
+      // children=[{
+        
+      // }]
+    }
   ]);
   

@@ -92,9 +92,9 @@ const Navbar = () => {
               <li>
                 <a>Profile</a>
               </li>
-              <li>
+              <Link to='/deshboard'> <li>
                 <a>Deshboard</a>
-              </li>
+              </li></Link>
               <div className="">
                 {user ? (
                   <>

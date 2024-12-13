@@ -7,10 +7,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import UseAuth from "../hooks/UseAuth";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const Registar = () => {
   const { createUser } = UseAuth();
-  const Navigat = useNavigate()
+  const Navigat = useNavigate();
 
   const {
     register,
@@ -19,12 +21,30 @@ const Registar = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    createUser(data.email, data.password, data.name)
-    Navigat("/")
-    // console.log(data);
-  };
+    const email = data.email;
+    const role = data.role;
+    const status = role === "bayer" ? "approved" : "panding";
+    const wishlist = [];
 
-  
+    const userData = { email, role, status, wishlist };
+
+    createUser(data.email, data.password).then(() => {
+      axios.post("http://localhost:5000/user", userData).then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+    });
+    Navigat("/")
+    // console.log(userData);
+  };
 
   return (
     <div className="font-serif">
@@ -84,6 +104,19 @@ const Registar = () => {
                     </p>
                   )}
                 </div>
+                <div>
+                  <label htmlFor="role">
+                    <select
+                      className="select select-bordered select-sm w-full max-w-xs"
+                      defaultValue="byer"
+                      {...register("role", { required: true })}
+                    >
+                      <option value="bayer">Byer</option>
+                      <option value="seller">Seller</option>
+                    </select>
+                  </label>
+                </div>
+
                 <div className=" mt-3">
                   <label
                     htmlFor="password"
@@ -105,7 +138,10 @@ const Registar = () => {
                   )}
                 </div>
 
-                <button type="submit" className="bg-blue-500 border-none btn btn-block mt-3">
+                <button
+                  type="submit"
+                  className="bg-blue-500 border-none btn btn-block mt-3"
+                >
                   Login Now
                 </button>
 
