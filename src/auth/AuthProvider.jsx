@@ -44,7 +44,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unScribe = onAuthStateChanged(auth, currentUser => {
-      console.log('user in the auth',currentUser);
+      // console.log('user in the auth',currentUser);
       setUser(currentUser);
       if(currentUser){
         axios.post(`http://localhost:5000/authication`,{
