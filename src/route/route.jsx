@@ -7,6 +7,8 @@ import Login from "../pages/Login";
 import Registar from "../pages/Registar";
 import DeshboardLayout from "../layoutes/DeshboardLayout";
 import PrivetRouter from "./PrivetRouter";
+import MyProduct from "../components/deshboard/seller/MyProduct";
+import AddProduct from "../components/deshboard/seller/AddProduct";
 
 export const router = createBrowserRouter([
     {
@@ -37,9 +39,16 @@ export const router = createBrowserRouter([
     },{
       path:"/deshboard",
       element:<PrivetRouter> <DeshboardLayout/> </PrivetRouter> ,
-      // children=[{
-        
-      // }]
+      children:[
+        {
+        path:"/deshboard/myproduct",
+        element:<MyProduct/>
+      },
+      {
+        path:"/deshboard/add-product",
+        element:<AddProduct/> 
+      },
+    ]
     }
   ]);
   

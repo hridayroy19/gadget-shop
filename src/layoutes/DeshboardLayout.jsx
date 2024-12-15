@@ -4,7 +4,6 @@ import {
   MdDashboard,
   MdDashboardCustomize,
   MdHome,
-  MdMenu,
   MdOutlineBorderColor,
 } from "react-icons/md";
 import { TiEdit } from "react-icons/ti";
@@ -41,53 +40,54 @@ const DeshboardLayout = () => {
             aria-label="close sidebar"
             className="drawer-overlay"
           ></label>
-          {data?.role === "seller" && (
-            <ul className="menu p-4 w-52 min-h-full bg-blue-400 text-base-content">
+          {data && (
+            <ul className="menu p-4 w-52 min-h-full bg-[#589af1c7] text-base-content">
               {/* Sidebar content here */}
               <li>
-                <Link className="flex justify-start gap-10" to={"/"}>
+                <Link
+                  className="flex text-2xl font-thin justify-start gap-10"
+                  to={"/"}
+                >
                   <h3> Gadget</h3>
-                  <span className="badge badge-secondary badge-outline">
-                    seller
-                  </span>
+                  <span className="badge text-xm ">{data.role}</span>
                 </Link>
               </li>
               <hr className="mb-2 mt-1" />
               <li>
                 <Link to={"/dashboard"}>
-                  <MdDashboard /> Dashboard{" "}
+                  <MdDashboard /> Dashboard
                 </Link>
               </li>
-              <li>
-                <Link to={"/dashboard/alluser"}>
-                  <FaUsers /> All Users
-                </Link>
-              </li>
+              {data.role === "seller" && (
+                <li>
+                  <Link to="/deshboard/myproduct">
+                    <FaUsers /> My Product
+                  </Link>
+                </li>
+              )}
               <li>
                 <Link to={"/dashboard/managebooking"}>
                   <FaBagShopping /> Manage Booking
                 </Link>
               </li>
-              <li>
-                <Link to={"/dashboard/addMenu"}>
-                  <IoMdAddCircleOutline /> Add Menu
-                </Link>
-              </li>
-              <li>
-                <Link to={"/dashboard/manageItem"}>
-                  <TiEdit /> Manage Items
-                </Link>
-              </li>
-
+              {data.role === "seller" && (
+                <li>
+                  <Link to="/deshboard/add-product">
+                    <IoMdAddCircleOutline /> Add Product
+                  </Link>
+                </li>
+              )}
+              {data.role === "seller" && (
+                <li>
+                  <Link to={"/dashboard/manageItem"}>
+                    <TiEdit /> Manage Items
+                  </Link>
+                </li>
+              )}
               <li className="mt-10">
                 <hr />
                 <Link to={"/"}>
                   <MdHome /> Home
-                </Link>
-              </li>
-              <li>
-                <Link to={"/menu"}>
-                  <MdMenu /> Menu
                 </Link>
               </li>
               <li>

@@ -27,7 +27,7 @@ const Login = () => {
       Navigat('/')
      })
   }
-   console.log(handelGoogleSignWith,"button click");
+  //  console.log(handelGoogleSignWith,"button click");
    
 
   return (
