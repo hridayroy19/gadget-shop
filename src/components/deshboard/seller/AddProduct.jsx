@@ -1,17 +1,56 @@
 import { useForm } from "react-hook-form";
+import UseAuth from "../../../hooks/UseAuth";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const AddProduct = () => {
+  const { user } = UseAuth();
   const {
     register,
     handleSubmit,
+    // reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
-    const email = data.email;
+    const title = data.title;
+    const brand = data.brand;
+    const price = parseFloat(data.price);
+    const stock = parseFloat(data.stock);
+    const catagory = data.catagory;
+    const description = data.description;
+    const sellerEmail = user?.email;
+    const productData = {
+      title,
+      brand,
+      price,
+      stock,
+      catagory,
+      description,
+      sellerEmail,
+    };
+    // console.log(productData);
 
-    const productData = { email };
-    console.log(productData);
+    const token = localStorage.getItem("access-token");
+    axios
+      .post("http://localhost:5000/product", productData, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Data insert successfuly",
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        }
+      });
+
+    // reset();
   };
 
   return (
@@ -31,8 +70,11 @@ const AddProduct = () => {
                   placeholder="Product Name"
                   type="text"
                   id="title"
-                  {...register("name", { required: true })}
+                  {...register("title", { required: true })}
                 />
+                {errors.email && (
+                  <p className=" text-red-500 font-medium">Name is required</p>
+                )}
               </div>
               <div>
                 <span className="label-text">Brand Name?</span>
@@ -41,6 +83,7 @@ const AddProduct = () => {
                   placeholder="Brand Name"
                   type="text"
                   id="brand"
+                  {...register("brand", { required: true })}
                 />
               </div>
             </div>
@@ -53,6 +96,7 @@ const AddProduct = () => {
                   placeholder="Add price"
                   type="text"
                   id="price"
+                  {...register("price", { required: true })}
                 />
               </div>
               <div>
@@ -62,6 +106,7 @@ const AddProduct = () => {
                   placeholder="Prive Stock"
                   type="text"
                   id="stock"
+                  {...register("stock", { required: true })}
                 />
               </div>
 
@@ -72,6 +117,7 @@ const AddProduct = () => {
                   placeholder="Product Catagory"
                   type="text"
                   id="catagory"
+                  {...register("catagory", { required: true })}
                 />
               </div>
             </div>
@@ -82,7 +128,8 @@ const AddProduct = () => {
                 className="w-full rounded-lg border-gray-200 p-3 text-sm"
                 placeholder="Message"
                 rows="4"
-                id="message"
+                id="description"
+                {...register("description", { required: true })}
               ></textarea>
             </div>
 
