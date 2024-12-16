@@ -18,10 +18,10 @@ const DeshboardLayout = () => {
     <div>
       <div className="drawer md:drawer-open font-bold">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex flex-col sm:items-start sm:justify-start my-2">
+        <div className="drawer-content flex flex-col sm:items-start sm:justify-start ">
           {/* Page content here */}
 
-          <div className=" flex items-center justify-between mx-2 mt-3">
+          <div className=" flex items-center justify-between mx-2 ">
             <label
               htmlFor="my-drawer-2"
               className="btn btn-primary drawer-button md:hidden"
@@ -30,7 +30,7 @@ const DeshboardLayout = () => {
             </label>
           </div>
 
-          <div className=" mt-5 md:mt-2 ">
+          <div className="  bg-blue-300 w-full h-full  ">
             <Outlet />
           </div>
         </div>
