@@ -8,10 +8,10 @@ const Home = () => {
     <>
       <div>
         <Banner />
-        <div className=" container mx-auto">
-          <FutureProduct />
-          <div className=" mt-16 mb-10">
-            <Review />
+        <div className="">
+          {/* <FutureProduct /> */}
+          <div className=" mb-10">
+            {/* <Review /> */}
           </div>
           <div className=" mt-16">
             <Accordion />
